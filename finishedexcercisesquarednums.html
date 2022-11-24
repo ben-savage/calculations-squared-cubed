@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Function library example</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+  </head>
+<body>
+<h> Type your number in below: </h>
+<br>
+  <input class="numberInput" type="text">
+<br>
+  <!--- newly added function for adding measurements for circles --->
+<label for="measurement">Choose the Measurement used for the circle:
+<select name="measurement" class="measurement" id="currentMeasurement">
+
+  <option> </option>
+  <option value="cm">cm</option>
+  <option value="m">m</option>
+  <option value="inches"> Inches </option>
+  <option value="feet"> feet </option>
+</select>
+</label>
+<!-- not the right drop down function --->
+
+<!--- end of new untested code-->
+
+  <p class="paraOne"> Type in a number to get the squares and cubes of the number</p>
+  <br>
+  <p class="paraTwo"> You'll also get the square root and cube root </p>
+  <br>
+  <p class="paraThree"> Now for some circle numbers! you get the area and circumference of a circle for the enterred diameter </p>
+  <br>
+  <p class="paraFour">  </p>
+  <div class="result"> </div>
+
+  <script>
+    // can add an extra box next to input for a measurement decider for circles, to allow cm or m to be chosen
+    // also could make just a chosen calculation to show up, have a drop down box to also choose which calculation you want the page to work out for you.
+    const input = document.querySelector('.numberInput');
+    const para1 = document.querySelector('.paraOne');
+    const para2 = document.querySelector('.paraTwo');
+    const para3 = document.querySelector('.paraThree');
+    const para4 = document.querySelector('.paraFour');
+
+    // functions to detail variables
+      function squared(num) {
+      return num ** 2;
+      }
+
+      function cubed(num) {
+        return num ** 3;
+      }
+
+      function factorial(num) {
+        if (num < 0) return undefined;
+        if (num === 0) return 1;
+        let x = num - 1;
+        while (x > 1) {
+          num *= x;
+          x--; 
+        }
+          return num;
+        }
+
+        function route(num) {
+            return Math.sqrt(num);
+        }
+
+        function cubeRoute(num) {
+            return Math.cbrt(num);
+        }
+        //circle circumference and area based of circle diameter
+        // Pi = Math.PI
+        function circumferenceCircle(num) {
+            return  Math.PI * (num);
+        }
+
+        function areaCircle(num) {
+            return Math.PI * ((0.5 * num) ** 2);
+        }
+
+        //function calculationData (num, unit) {}
+        let unit = "";
+         const selectElement = document.querySelector('.measurement');
+//    FINAL ERROR
+//    Making circles use the measurement that has been decided by the user.
+//    Need to get it added correctly into para4.textContent
+         selectElement.addEventListener('change', (event) => {
+        //  const result = document.querySelector('.result');
+         unit = event.target.value;
+         const num = parseFloat(input.value);
+        if (isNaN(num)) {
+          para.textContent = "You need to enter a number!";
+          para2.textContent = "You still need to enter a number!";
+        } else {
+          para1.textContent = `${num} squared is ${squared(num)}.\n`;
+          para1.textContent += `${num} cubed is ${cubed(num)}.\n`;
+          para1.textContent += `${num} factorial is ${factorial(num)}.\n`;
+        
+          para2.textContent = `The square route of ${num} is ${route(num)}.\n`;
+          para2.textContent += `The cube route of ${num} is ${cubeRoute(num)}.\n`;
+        
+          para3.textContent = `The circumference of your circle is ${circumferenceCircle       (num)} for a diameter of ${num}`;
+        
+          para4.textContent = `the area of your circle is ${areaCircle(num)} for a diameter        of ${num} ${unit}`;
+        }
+         });
+
+
+input.addEventListener('change', (event) => {
+  const num = parseFloat(input.value);
+  if (isNaN(num)) {
+    para.textContent = "You need to enter a number!";
+    para2.textContent = "You still need to enter a number!";
+  } else {
+    para1.textContent = `${num} squared is ${squared(num)}.\n`;
+    para1.textContent += `${num} cubed is ${cubed(num)}.\n`;
+    para1.textContent += `${num} factorial is ${factorial(num)}.\n`;
+
+    para2.textContent = `The square route of ${num} is ${route(num)}.\n`;
+    para2.textContent += `The cube route of ${num} is ${cubeRoute(num)}.\n`;
+   
+    para3.textContent = `The circumference of your circle is ${circumferenceCircle(num)} for a diameter of ${num}`;
+
+    para4.textContent = `the area of your circle is ${areaCircle(num)} for a diameter of ${num} ${unit}`;
+  }
+});
+
+  </script>
+</body>
+</html>
+
+<!-- 
+Added and needs removing if not working
+-added event listener on para4.textContent
+-added function addEventListener(currentMeasurement)
+
+-->
